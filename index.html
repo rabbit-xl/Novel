@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,scale-inital=1">
+		<title>红袖添香</title>
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1457061_22cgdadyegx.css" />
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/vue.min.js"></script>
+	</head>
+	<body id="app">
+		<div class="wrap">
+			<header class="head">
+				<div class="head_top ">
+					<div class="top_content content ">
+						<h1 class="title">红袖添香</h1>
+							<div class="search_box" id="search_in">
+								<input class="search_input" @keyup.enter="search_book" v-model="message" type="text" placeholder="请搜索小说名">
+								<i class="iconfont icon-sousuo1 " @click="search_book "></i>
+							</div>
+							<div class="top_right">
+								<i class="iconfont icon-jiarushujia_01"></i>
+								<span>我的书架</span>
+								<i class="iconfont icon-denglu"></i>
+								<span>登录</span>
+							</div>
+					</div>
+				</div>
+				<div id="nav">
+					<div class="content bottom_head">
+						<i class="iconfont icon-caidan"></i>
+						 <ul class="nav_content ">
+							<li v-for="item in navList"><a :id="item.id" :href="item.url">{{ item.content }}</a></li>
+						</ul>
+						<i class="iconfont icon-chongzhi1"></i>
+						<span>充值</span>
+					</div >
+					
+				</div>
+                 
+			</header>
+			<div class="main" >
+				<div class="content" >
+					<!-- 轮播 -->
+					<div id="adver" v-show="lbt">
+						<ul class="wrapper">
+							<li v-for="item in wrap">
+								<img :src="item.img" :data-index="item.index" v-show="item.current" class="picImg">
+							</li>
+						</ul>
+						<div class="wrapper_name">
+							<a href="#" v-for="item in wrap" :data-index="item.index" class="wrap_content " :class="item.color">{{ item.content }}</a>
+						</div>
+						<div class="gonggao" >
+							<h3>公告</h3>
+							<ul>
+								<li v-for="item in gList"><a :href="item.url">{{ item.content }}</a></li>
+								
+							</ul>
+						</div>
+					</div>
+					<!--  -->
+					<!-- 热门书籍展示 -->
+					<div class="hot" id="book" v-show="hot">
+						<h3>热门书籍</h3>
+					    <hot-book v-for="item in bookList" v-bind:item="item"></hot-book>
+							<img class="tp" src="https://qidian.gtimg.com/hongxiu/images/index/report.ca1c9.jpg" >
+					</div>
+						
+					<!--  -->
+					
+
+				</div>
+			    <!-- 搜索结果 -->
+			    <div id="result_seacrh" class="content" v-show="searchPage">
+			    	<span class="total" v-show="find">共搜索到{{ total }}部与<span class="name">"{{ message }}"</span>相关结果</span>
+			    	<span class="not total " v-show="not">没有找到与<span class="name">"{{ message }}"</span>相关结果</span>
+			    	<ul class="search_nav">
+			    		<li v-for="item in nav" ><a href="#">{{ item.name }}</a></li>
+			    	</ul>
+			    	<search-book v-for="item in information" v-bind:item="item" ></search-book>
+			    </div>
+			</div>
+		</div>
+
+		<script src="js/search.js"></script>
+		<script src="js/index.js"></script>
+	</body>
+	
+</html>
